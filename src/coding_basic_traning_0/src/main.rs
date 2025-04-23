@@ -1,3 +1,5 @@
+use std::io::{self, BufRead};
+
 fn main() {
     /*
     문자열 출력하기
@@ -12,6 +14,25 @@ fn main() {
         출력 #1
             HelloWorld!
     */
-    let str = String::from("HelloWorld!");
-    println!("{str}")
+    println!("##### 문자열 출력하기 #####");
+
+    loop {
+        println!("입력 #1");
+
+        let mut str = String::new();
+
+        io::stdin()
+            .read_line(&mut str)
+            .expect("reading console input error.");
+
+        str = str.replace(" ", "").trim().to_string();
+
+        if str.len() >= 1 && str.len() <= 100 {
+            println!("출력 #1");
+            println!("{str}");
+            break;
+        } else {
+            println!("문자열 길이는 1 보다 크고 100 보다 작아야 합니다.");
+        }
+    }
 }
