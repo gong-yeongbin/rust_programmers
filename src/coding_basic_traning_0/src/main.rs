@@ -56,10 +56,14 @@ fn main() {
     io::stdin().read_line(&mut arg).expect("");
 
     let mut input = arg.trim().split_whitespace();
-    let a = input.next().unwrap();
-    let b = input.next().unwrap();
+    let a = input.next().unwrap().parse::<i32>().unwrap();
+    let b = input.next().unwrap().parse::<i32>().unwrap();
 
-    println!("출력 #1 ");
-    println!("a = {a}");
-    println!("b = {b}");
+    if a <= -100000 || b >= 100000 {
+        println!("-100,000 ≤ a, b ≤ 100,000 error!")
+    } else {
+        println!("출력 #1 ");
+        println!("a = {a}");
+        println!("b = {b}");
+    }
 }
