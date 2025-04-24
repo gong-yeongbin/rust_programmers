@@ -14,25 +14,52 @@ fn main() {
         출력 #1
             HelloWorld!
     */
-    println!("##### 문자열 출력하기 #####");
+    // println!("##### 문자열 출력하기 #####");
+    //
+    // loop {
+    //     println!("입력 #1");
+    //
+    //     let mut str = String::new();
+    //
+    //     io::stdin()
+    //         .read_line(&mut str)
+    //         .expect("reading console input error.");
+    //
+    //     str = str.replace(" ", "").trim().to_string();
+    //
+    //     if str.len() >= 1 && str.len() <= 100 {
+    //         println!("출력 #1");
+    //         println!("{str}");
+    //         break;
+    //     } else {
+    //         println!("문자열 길이는 1 보다 크고 100 보다 작아야 합니다.");
+    //     }
+    // }
 
-    loop {
-        println!("입력 #1");
+    /*
+    a와 b 출력하기
+    문제 설명
+        - 정수 a와 b가 주어집니다. 각 수를 입력받아 입출력 예와 같은 형식으로 출력하는 코드를 작성해 보세요.
+    제한사항
+        - -100,000 ≤ a, b ≤ 100,000
+    입출력 예
+        입력 #1
+            4 5
+        출력 #1
+            a = 4
+            b = 5
+    */
+    println!("##### a와 b 출력하기 #####");
+    let mut arg = String::new();
 
-        let mut str = String::new();
+    println!("입력 #1 ");
+    io::stdin().read_line(&mut arg).expect("");
 
-        io::stdin()
-            .read_line(&mut str)
-            .expect("reading console input error.");
+    let mut input = arg.trim().split_whitespace();
+    let a = input.next().unwrap();
+    let b = input.next().unwrap();
 
-        str = str.replace(" ", "").trim().to_string();
-
-        if str.len() >= 1 && str.len() <= 100 {
-            println!("출력 #1");
-            println!("{str}");
-            break;
-        } else {
-            println!("문자열 길이는 1 보다 크고 100 보다 작아야 합니다.");
-        }
-    }
+    println!("출력 #1 ");
+    println!("a = {a}");
+    println!("b = {b}");
 }
