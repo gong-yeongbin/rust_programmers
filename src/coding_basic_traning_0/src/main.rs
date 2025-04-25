@@ -9,6 +9,14 @@ fn is_alphabetic(str: &str) -> bool {
     true
 }
 
+fn is_alphanumeric(str: &str) -> bool {
+    let text = str.clone().trim().replace(" ", "");
+    for c in text.chars() {
+        if c.is_alphanumeric() { return false; }
+    }
+    true
+}
+
 fn main() {
     /*
     문자열 출력하기
@@ -126,22 +134,103 @@ fn main() {
     출력 #1
         AbCdEfG
     */
-    println!("##### 대소문자 바꿔서 출력하기 #####");
+    // println!("##### 대소문자 바꿔서 출력하기 #####");
+    // let mut args = String::new();
+    //
+    // println!("입력 #1");
+    // io::stdin().read_line(&mut args).unwrap();
+    //
+    // if !is_alphabetic(&args) {
+    //     println!("알파벳 문자가 아닙니다.");
+    //     exit(0);
+    // }
+    //
+    // println!("출력 #1");
+    // for c in args.chars() {
+    //     if c.is_uppercase() { print!("{}", c.to_lowercase()) }
+    //     if c.is_lowercase() { print!("{}", c.to_uppercase()) }
+    // }
+
+    /*
+    특수문자 출력하기
+    문제 설명
+        다음과 같이 출력하도록 코드를 작성해 주세요.
+    출력 예시
+        !@#$%^&*(\'"<>?:;
+    */
+    println!("##### 특수문자 출력하기 #####");
     let mut args = String::new();
 
     println!("입력 #1");
     io::stdin().read_line(&mut args).unwrap();
 
-    if !is_alphabetic(&args) {
-        println!("알파벳 문자가 아닙니다.");
+    if !is_alphanumeric(&args) {
+        println!("특수문자가 아닙니다.");
         exit(0);
     }
-
     println!("출력 #1");
-    for c in args.chars() {
-        if c.is_uppercase() { print!("{}", c.to_lowercase()) }
-        if c.is_lowercase() { print!("{}", c.to_uppercase()) }
-    }
+    println!("{}", args);
+    /*
+덧셈식 출력하기
+문제 설명
+두 정수 a, b가 주어질 때 다음과 같은 형태의 계산식을 출력하는 코드를 작성해 보세요.
+
+a + b = c
+제한사항
+1 ≤ a, b ≤ 100
+입출력 예
+입력 #1
+
+4 5
+출력 #1
+
+4 + 5 = 9
+    */
+
+    /*
+문자열 붙여서 출력하기
+문제 설명
+두 개의 문자열 str1, str2가 공백으로 구분되어 입력으로 주어집니다.
+입출력 예와 같이 str1과 str2을 이어서 출력하는 코드를 작성해 보세요.
+
+제한사항
+1 ≤ str1, str2의 길이 ≤ 10
+입출력 예
+입력 #1
+
+apple pen
+출력 #1
+
+applepen
+입력 #2
+
+Hello World!
+출력 #2
+
+HelloWorld!
+    */
+
+    /*
+    문자열 돌리기
+    문제 설명
+문자열 str이 주어집니다.
+문자열을 시계방향으로 90도 돌려서 아래 입출력 예와 같이 출력하는 코드를 작성해 보세요.
+
+제한사항
+1 ≤ str의 길이 ≤ 10
+
+입출력 예
+입력 #1
+
+abcde
+출력 #1
+
+a
+b
+c
+d
+e
+*/
 }
 
 
