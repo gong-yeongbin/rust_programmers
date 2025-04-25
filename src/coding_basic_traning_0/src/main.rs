@@ -158,34 +158,51 @@ fn main() {
     출력 예시
         !@#$%^&*(\'"<>?:;
     */
-    println!("##### 특수문자 출력하기 #####");
+    // println!("##### 특수문자 출력하기 #####");
+    // let mut args = String::new();
+    //
+    // println!("입력 #1");
+    // io::stdin().read_line(&mut args).unwrap();
+    //
+    // if !is_alphanumeric(&args) {
+    //     println!("특수문자가 아닙니다.");
+    //     exit(0);
+    // }
+    // println!("출력 #1");
+    // println!("{}", args);
+
+    /*
+    덧셈식 출력하기
+    문제 설명
+        두 정수 a, b가 주어질 때 다음과 같은 형태의 계산식을 출력하는 코드를 작성해 보세요.
+        a + b = c
+    제한사항
+        - 1 ≤ a, b ≤ 100
+    입출력 예
+    입력 #1
+        4 5
+    출력 #1
+        4 + 5 = 9
+    */
+    println!("##### 덧셈식 출력하기 #####");
     let mut args = String::new();
 
     println!("입력 #1");
     io::stdin().read_line(&mut args).unwrap();
 
-    if !is_alphanumeric(&args) {
-        println!("특수문자가 아닙니다.");
-        exit(0);
+    let input: Vec<&str> = args.trim().split_whitespace().collect();
+    let a = input[0].parse::<i32>().unwrap_or(0);
+    let b = input[1].parse::<i32>().unwrap_or(0);
+
+    if a < 0 || b > 100 {
+        println!("1 ≤ a, b ≤ 100 error!");
+        exit(0)
     }
+
     println!("출력 #1");
-    println!("{}", args);
-    /*
-덧셈식 출력하기
-문제 설명
-두 정수 a, b가 주어질 때 다음과 같은 형태의 계산식을 출력하는 코드를 작성해 보세요.
+    println!("{} + {} = {}", a, b, a + b);
 
-a + b = c
-제한사항
-1 ≤ a, b ≤ 100
-입출력 예
-입력 #1
 
-4 5
-출력 #1
-
-4 + 5 = 9
-    */
 
     /*
 문자열 붙여서 출력하기
