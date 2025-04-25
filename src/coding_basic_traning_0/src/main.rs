@@ -1,4 +1,5 @@
 use std::io::{self, BufRead};
+use std::process::exit;
 
 fn is_alphabetic(str: &str) -> bool {
     let text = str.clone().trim().replace(" ", "");
@@ -262,8 +263,14 @@ fn main() {
     println!("입력 #");
     io::stdin().read_line(&mut args).unwrap();
 
+    let len = args.trim().len();
+    if len < 1 || len > 10 {
+        println!("- 1 ≤ str의 길이 ≤ 10 error!");
+        exit(0);
+    }
+
     println!("출력 #");
-    for c in args.trim().chars() {
+    for c in args.chars() {
         println!("{c}");
     }
 }
