@@ -49,21 +49,91 @@ fn main() {
             a = 4
             b = 5
     */
-    println!("##### a와 b 출력하기 #####");
-    let mut arg = String::new();
+    // println!("##### a와 b 출력하기 #####");
+    // let mut arg = String::new();
+    //
+    // println!("입력 #1 ");
+    // io::stdin().read_line(&mut arg).expect("");
+    //
+    // let mut input = arg.trim().split_whitespace();
+    // let a = input.next().unwrap().parse::<i32>().unwrap();
+    // let b = input.next().unwrap().parse::<i32>().unwrap();
+    //
+    // if a <= -100000 || b >= 100000 {
+    //     println!("-100,000 ≤ a, b ≤ 100,000 error!")
+    // } else {
+    //     println!("출력 #1 ");
+    //     println!("a = {a}");
+    //     println!("b = {b}");
+    // }
 
-    println!("입력 #1 ");
-    io::stdin().read_line(&mut arg).expect("");
+    /*
+    문자열 반복해서 출력하기
+    문제 설명
+        - 문자열 str과 정수 n이 주어집니다.
+        - str이 n번 반복된 문자열을 만들어 출력하는 코드를 작성해 보세요.
+    제한사항
+        - 1 ≤ str의 길이 ≤ 10
+        - 1 ≤ n ≤ 5
+    입출력 예
+        입력 #1
+            string 5
+        출력 #1
+            stringstringstringstringstring
+    */
+    println!("##### 문자열 반복해서 출력하기 #####");
+    let mut args = String::new();
 
-    let mut input = arg.trim().split_whitespace();
-    let a = input.next().unwrap().parse::<i32>().unwrap();
-    let b = input.next().unwrap().parse::<i32>().unwrap();
+    loop {
+        println!("입력 #1");
+        io::stdin().read_line(&mut args).unwrap();
+        let input: Vec<&str> = args.split_whitespace().collect();
 
-    if a <= -100000 || b >= 100000 {
-        println!("-100,000 ≤ a, b ≤ 100,000 error!")
-    } else {
-        println!("출력 #1 ");
-        println!("a = {a}");
-        println!("b = {b}");
+        let arg1 = input[0];
+        let arg2 = input[1].parse::<i32>().unwrap_or(1);
+
+        if arg1.len() < 1 || arg1.len() > 10 { continue; }
+        if arg2 < 1 || arg2 > 5 { continue; }
+
+        println!("출력 #1");
+        let mut iter = 0;
+        loop {
+            if iter == arg2 { break; } else { print!("{arg1}"); }
+            iter += 1;
+        }
+        break;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
