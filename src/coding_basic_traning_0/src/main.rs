@@ -257,21 +257,59 @@ fn main() {
         d
         e
     */
-    println!("##### 문자열 돌리기 #####");
+    // println!("##### 문자열 돌리기 #####");
+    // let mut args = String::new();
+    //
+    // println!("입력 #");
+    // io::stdin().read_line(&mut args).unwrap();
+    //
+    // let len = args.trim().len();
+    // if len < 1 || len > 10 {
+    //     println!("- 1 ≤ str의 길이 ≤ 10 error!");
+    //     exit(0);
+    // }
+    //
+    // println!("출력 #");
+    // for c in args.chars() {
+    //     println!("{c}");
+    // }
+
+    /*
+    홀짝 구분하기
+    문제 설명
+        자연수 n이 입력으로 주어졌을 때 만약 n이 짝수이면 "n is even"을, 홀수이면 "n is odd"를 출력하는 코드를 작성해 보세요.
+    제한사항
+        - 1 ≤ n ≤ 1,000
+    입출력 예
+    입력 #1
+        100
+    출력 #1
+        100 is even
+    입력 #2
+        1
+    출력 #2
+        1 is odd
+    */
+    println!("##### 홀짝 구분하기 #####");
     let mut args = String::new();
 
     println!("입력 #");
     io::stdin().read_line(&mut args).unwrap();
 
-    let len = args.trim().len();
-    if len < 1 || len > 10 {
-        println!("- 1 ≤ str의 길이 ≤ 10 error!");
-        exit(0);
-    }
+    // let n = args.trim().parse::<i32>().unwrap_or(0);
+    let n = match args.trim().parse::<i32>() {
+        Ok(n) => n,
+        Err(_) => {
+            println!("숫자가 아닙니다.");
+            exit(0)
+        }
+    };
 
     println!("출력 #");
-    for c in args.chars() {
-        println!("{c}");
+    if n % 2 == 0 {
+        println!("{} is even", n);
+    } else {
+        println!("{} is odd", n);
     }
 }
 
