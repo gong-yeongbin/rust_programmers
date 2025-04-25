@@ -184,48 +184,61 @@ fn main() {
     출력 #1
         4 + 5 = 9
     */
-    println!("##### 덧셈식 출력하기 #####");
+    // println!("##### 덧셈식 출력하기 #####");
+    // let mut args = String::new();
+    //
+    // println!("입력 #1");
+    // io::stdin().read_line(&mut args).unwrap();
+    //
+    // let input: Vec<&str> = args.trim().split_whitespace().collect();
+    // let a = input[0].parse::<i32>().unwrap_or(0);
+    // let b = input[1].parse::<i32>().unwrap_or(0);
+    //
+    // if a < 0 || b > 100 {
+    //     println!("1 ≤ a, b ≤ 100 error!");
+    //     exit(0)
+    // }
+    //
+    // println!("출력 #1");
+    // println!("{} + {} = {}", a, b, a + b);
+
+    /*
+    문자열 붙여서 출력하기
+    문제 설명
+        두 개의 문자열 str1, str2가 공백으로 구분되어 입력으로 주어집니다.
+        입출력 예와 같이 str1과 str2을 이어서 출력하는 코드를 작성해 보세요.
+    제한사항
+        - 1 ≤ str1, str2의 길이 ≤ 10
+    입출력 예
+    입력 #1
+        apple pen
+    출력 #1
+        applepen
+    입력 #2
+        Hello World!
+    출력 #2
+        HelloWorld!
+    */
+    println!("##### 문자열 붙여서 출력하기 #####");
     let mut args = String::new();
 
-    println!("입력 #1");
+    println!("입력 #");
     io::stdin().read_line(&mut args).unwrap();
 
     let input: Vec<&str> = args.trim().split_whitespace().collect();
-    let a = input[0].parse::<i32>().unwrap_or(0);
-    let b = input[1].parse::<i32>().unwrap_or(0);
+    let str1 = input[0];
+    let str2 = input[1];
 
-    if a < 0 || b > 100 {
-        println!("1 ≤ a, b ≤ 100 error!");
-        exit(0)
+    if str1.len() < 1 || str2.len() > 10 {
+        println!("- 1 ≤ str1, str2의 길이 ≤ 10 error!");
+        exit(0);
     }
 
-    println!("출력 #1");
-    println!("{} + {} = {}", a, b, a + b);
-
-
-
-    /*
-문자열 붙여서 출력하기
-문제 설명
-두 개의 문자열 str1, str2가 공백으로 구분되어 입력으로 주어집니다.
-입출력 예와 같이 str1과 str2을 이어서 출력하는 코드를 작성해 보세요.
-
-제한사항
-1 ≤ str1, str2의 길이 ≤ 10
-입출력 예
-입력 #1
-
-apple pen
-출력 #1
-
-applepen
-입력 #2
-
-Hello World!
-출력 #2
-
-HelloWorld!
-    */
+    let mut result = str1.clone().to_string();
+    result.push_str(str2);
+    
+    println!("출력 #");
+    println!("{}", result);
 
     /*
     문자열 돌리기
