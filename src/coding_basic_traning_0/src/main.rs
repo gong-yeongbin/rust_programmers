@@ -1,4 +1,13 @@
 use std::io::{self, BufRead};
+use std::process::exit;
+
+fn is_alphabetic(str: &str) -> bool {
+    let text = str.clone().trim().replace(" ", "");
+    for c in text.chars() {
+        if !c.is_alphabetic() { return false; }
+    }
+    true
+}
 
 fn main() {
     /*
@@ -81,27 +90,57 @@ fn main() {
         출력 #1
             stringstringstringstringstring
     */
-    println!("##### 문자열 반복해서 출력하기 #####");
+    // println!("##### 문자열 반복해서 출력하기 #####");
+    // let mut args = String::new();
+    //
+    // loop {
+    //     println!("입력 #1");
+    //     io::stdin().read_line(&mut args).unwrap();
+    //     let input: Vec<&str> = args.split_whitespace().collect();
+    //
+    //     let arg1 = input[0];
+    //     let arg2 = input[1].parse::<i32>().unwrap_or(1);
+    //
+    //     if arg1.len() < 1 || arg1.len() > 10 { continue; }
+    //     if arg2 < 1 || arg2 > 5 { continue; }
+    //
+    //     println!("출력 #1");
+    //     let mut iter = 0;
+    //     loop {
+    //         if iter == arg2 { break; } else { print!("{arg1}"); }
+    //         iter += 1;
+    //     }
+    //     break;
+    // }
+
+    /*
+    대소문자 바꿔서 출력하기
+    문제 설명
+        영어 알파벳으로 이루어진 문자열 str이 주어집니다. 각 알파벳을 대문자는 소문자로 소문자는 대문자로 변환해서 출력하는 코드를 작성해 보세요.
+    제한사항
+        - 1 ≤ str의 길이 ≤ 20
+        - str은 알파벳으로 이루어진 문자열입니다.
+    입출력 예
+    입력 #1
+        aBcDeFg
+    출력 #1
+        AbCdEfG
+    */
+    println!("##### 대소문자 바꿔서 출력하기 #####");
     let mut args = String::new();
 
-    loop {
-        println!("입력 #1");
-        io::stdin().read_line(&mut args).unwrap();
-        let input: Vec<&str> = args.split_whitespace().collect();
+    println!("입력 #1");
+    io::stdin().read_line(&mut args).unwrap();
 
-        let arg1 = input[0];
-        let arg2 = input[1].parse::<i32>().unwrap_or(1);
+    if !is_alphabetic(&args) {
+        println!("알파벳 문자가 아닙니다.");
+        exit(0);
+    }
 
-        if arg1.len() < 1 || arg1.len() > 10 { continue; }
-        if arg2 < 1 || arg2 > 5 { continue; }
-
-        println!("출력 #1");
-        let mut iter = 0;
-        loop {
-            if iter == arg2 { break; } else { print!("{arg1}"); }
-            iter += 1;
-        }
-        break;
+    println!("출력 #1");
+    for c in args.chars() {
+        if c.is_uppercase() { print!("{}", c.to_lowercase()) }
+        if c.is_lowercase() { print!("{}", c.to_uppercase()) }
     }
 }
 
