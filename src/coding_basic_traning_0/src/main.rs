@@ -1,3 +1,5 @@
+use std::cmp::Ordering;
+use std::fmt::format;
 use std::io::{self, BufRead};
 use std::process::exit;
 use std::slice::SliceIndex;
@@ -17,6 +19,29 @@ fn is_alphanumeric(str: &str) -> bool {
         if c.is_alphanumeric() { return false; }
     }
     true
+}
+
+fn is_validation_mystring(str: &str) -> Result<(), String> {
+    let len = str.len();
+    if len < 1 {
+        return Err(format!("최소 {}자 이상 입력해야 합니다. 현재: {}", 1, len));
+    } else if len > 1000 { return Err(format!("최대 {}자 이하여야 합니다. 현재: {}", 1000, len)); } else { Ok(()) }
+}
+
+fn is_validation_overwrite_string(str1: &str, str2: &str) -> Result<(), String> {
+    let str1_len = str1.len();
+    let str2_len = str2.len();
+    if str2_len < 1 {
+        return Err(format!("최소 {}자 이상 입력해야 합니다. 현재: {}", 1, str1_len));
+    } else if str1_len < str2_len {
+        return Err(format!("최대 {}자 이하여야 합니다. 현재: {}", 1000, str1_len));
+    } else { Ok(()) }
+}
+
+fn is_validation_s(n1: usize, n2: usize) -> Result<(), String> {
+    if n1 < 0 {
+        return Err(format!("최소 {}이상 입력해야 합니다. 현재: {}", 0, n1));
+    } else if n1 > n2 { return Err(format!("최대 {} 이하여야 합니다. 현재: {}", n2, n1)); } else { Ok(()) }
 }
 
 
@@ -332,57 +357,95 @@ fn main() {
     입출력 예 #2
         예제 2번의 my_string에서 인덱스 7부터 overwrite_string의 길이만큼에 해당하는 부분은 "29b8UYP"이고 이를 "merS123"로 바꾼 "ProgrammerS123"를 return 합니다.
     */
-    println!("##### 문자열 겹쳐쓰기 #####");
-    let mut args = String::new();
+    // println!("##### 문자열 겹쳐쓰기 #####");
+    // let mut args = String::new();
+    //
+    // println!("입력 #");
+    // io::stdin().read_line(&mut args).unwrap();
+    //
+    // let buffer: Vec<&str> = args.split_whitespace().collect();
+    // let arg1 = buffer[0];
+    // let arg2 = buffer[1];
+    // let arg3 = buffer[2].parse::<usize>().unwrap();
+    //
+    // let mut my_string = match is_validation_mystring(arg1) {
+    //     Ok(()) => arg1.to_string(),
+    //     Err(err) => exit(0)
+    // };
+    // let overwrite_string = match is_validation_overwrite_string(arg1, arg2) {
+    //     Ok(()) => arg2,
+    //     Err(err) => exit(0)
+    // };
+    // let s = match is_validation_s(buffer[2].parse::<usize>().unwrap(), arg1.len() - arg2.len()) {
+    //     Ok(()) => arg3,
+    //     Err(err) => exit(0)
+    // };
+    //
+    // my_string.replace_range(s..s + overwrite_string.len(), overwrite_string);
+    // println!("출력 #");
+    // println!("{}", my_string)
+
+    /*
+    문자열 섞기
+    문제 설명
+        길이가 같은 두 문자열 str1과 str2가 주어집니다.
+        두 문자열의 각 문자가 앞에서부터 서로 번갈아가면서 한 번씩 등장하는 문자열을 만들어 return 하는 solution 함수를 완성해 주세요.
+    제한사항
+        - 1 ≤ str1의 길이 = str2의 길이 ≤ 10
+        - str1과 str2는 알파벳 소문자로 이루어진 문자열입니다.
+    입출력 예
+        str1	str2	result
+        "aaaaa"	"bbbbb"	"ababababab"
+    */
+    println!("##### 문자열 섞기 #####");
+    let mut buffer = String::new();
 
     println!("입력 #");
-    io::stdin().read_line(&mut args).unwrap();
+    io::stdin().read_line(&mut buffer).unwrap();
 
-    let buffer: Vec<&str> = args.split_whitespace().collect();
-    let arg1 = buffer[0];
-    let arg2 = buffer[1];
-    let arg3 = buffer[2].parse::<usize>().unwrap();
-
-    let mut my_string = match is_validation_mystring(arg1) {
-        Ok(()) => arg1.to_string(),
-        Err(err) => exit(0)
+    let input: Vec<&str> = buffer.split_whitespace().collect();
+    let str1 = match is_mix_str_verification(input[0]) {
+        Ok(()) => input[0],
+        Err(err) => panic!("{}", err)
     };
-    let overwrite_string = match is_validation_overwrite_string(arg1, arg2) {
-        Ok(()) => arg2,
-        Err(err) => exit(0)
-    };
-    let s = match is_validation_s(buffer[2].parse::<usize>().unwrap(), arg1.len() - arg2.len()) {
-        Ok(()) => arg3,
-        Err(err) => exit(0)
+    let str2 = match is_mix_str_verification(input[1]) {
+        Ok(()) => input[1],
+        Err(err) => panic!("{}", err)
     };
 
-    my_string.replace_range(s..s + overwrite_string.len(), overwrite_string);
     println!("출력 #");
-    println!("{}", my_string)
+    print_mix_str(str1, str2);
 }
 
+fn print_mix_str(str1: &str, str2: &str) {
+    if str1.len() != str2.len() { panic!("The two characters are not the same length.") }
 
-fn is_validation_mystring(str: &str) -> Result<(), String> {
-    let len = str.len();
-    if len < 1 {
-        return Err(format!("최소 {}자 이상 입력해야 합니다. 현재: {}", 1, len));
-    } else if len > 1000 { return Err(format!("최대 {}자 이하여야 합니다. 현재: {}", 1000, len)); } else { Ok(()) }
+    let chars1: Vec<char> = str1.chars().collect();
+    let chars2: Vec<char> = str2.chars().collect();
+
+    for i in 0..chars1.len() {
+        print!("{}{}", chars1[i], chars2[i]);
+    }
 }
 
-fn is_validation_overwrite_string(str1: &str, str2: &str) -> Result<(), String> {
-    let str1_len = str1.len();
-    let str2_len = str2.len();
-    if str2_len < 1 {
-        return Err(format!("최소 {}자 이상 입력해야 합니다. 현재: {}", 1, str1_len));
-    } else if str1_len < str2_len {
-        return Err(format!("최대 {}자 이하여야 합니다. 현재: {}", 1000, str1_len));
-    } else { Ok(()) }
-}
+fn is_mix_str_verification(str: &str) -> Result<(), String> {
+    for s in str.chars() {
+        if !s.is_lowercase() {
+            return Err(format!("Is not lowercase"));
+        }
+        if !s.is_alphabetic() {
+            return Err(format!("Is not alphabet"));
+        }
+    }
 
-fn is_validation_s(n1: usize, n2: usize) -> Result<(), String> {
-    if n1 < 0 {
-        return Err(format!("최소 {}이상 입력해야 합니다. 현재: {}", 0, n1));
-    } else if n1 > n2 { return Err(format!("최대 {} 이하여야 합니다. 현재: {}", n2, n1)); } else { Ok(()) }
+    if str.len() <= 0 {
+        return Err(format!("Minimum length must be 1."));
+    }
+    if str.len() > 10 {
+        return Err(format!("Maximum length must be 10."));
+    }
+
+    Ok(())
 }
 
 
