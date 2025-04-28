@@ -85,6 +85,17 @@ fn is_mix_str_verification(str: &str) -> Result<(), String> {
 //     result
 // }
 
+// fn solution(input: Vec<&str>) -> String {
+//     let mut result = String::new();
+//     let my_string = input[0];
+//     let k = input[1].parse::<usize>().unwrap();
+//
+//     for i in 0..k {
+//         result.push_str(my_string);
+//     }
+//     result
+// }
+
 fn main() {
     /*
     문자열 출력하기
@@ -496,27 +507,64 @@ fn main() {
     입출력 예 #2
         예제 2번의 my_string은 "love"이고 이를 10번 반복한 문자열은 "lovelovelovelovelovelovelovelovelovelove"이므로 이를 return 합니다.
     */
-    println!("##### 문자열 곱하기 #####");
-    println!("입력 #");
+    // println!("##### 문자열 곱하기 #####");
+    // println!("입력 #");
+    // let mut buffer = String::new();
+    // io::stdin().read_line(&mut buffer).unwrap();
+    //
+    // let input: Vec<&str> = buffer.split_whitespace().collect();
+    // let result = solution(input);
+    // println!("출력 #");
+    // println!("{result}");
+
+    /*
+    더 크게 합치기
+    문제 설명
+        연산 ⊕는 두 정수에 대한 연산으로 두 정수를 붙여서 쓴 값을 반환합니다. 예를 들면 다음과 같습니다.
+        - 12 ⊕ 3 = 123
+        - 3 ⊕ 12 = 312
+        양의 정수 a와 b가 주어졌을 때, a ⊕ b와 b ⊕ a 중 더 큰 값을 return 하는 solution 함수를 완성해 주세요.
+        단, a ⊕ b와 b ⊕ a가 같다면 a ⊕ b를 return 합니다.
+    제한사항
+        1 ≤ a, b < 10,000
+    입출력 예
+        a	b	result
+        9	91	991
+        89	8	898
+    입출력 예 설명
+    입출력 예 #1
+        a ⊕ b = 991 이고, b ⊕ a = 919 입니다. 둘 중 더 큰 값은 991 이므로 991을 return 합니다.
+    입출력 예 #2
+        a ⊕ b = 898 이고, b ⊕ a = 889 입니다. 둘 중 더 큰 값은 898 이므로 898을 return 합니다.
+    */
+    println!("##### 더 크게 합치기 #####");
     let mut buffer = String::new();
+
+    println!("입력 #");
     io::stdin().read_line(&mut buffer).unwrap();
 
     let input: Vec<&str> = buffer.split_whitespace().collect();
-    let result = solution(input);
+    let a = input[0];
+    let b = input[1];
+
+    let result = solution(&a, &b);
     println!("출력 #");
     println!("{result}");
 }
 
-fn solution(input: Vec<&str>) -> String {
-    let mut result = String::new();
-    let my_string = input[0];
-    let k = input[1].parse::<usize>().unwrap();
+fn solution(a: &str, b: &str) -> String {
+    let ab_string = format!("{}{}", a, b);
+    let ba_string = format!("{}{}", b, a);
+    let ab_i32 = ab_string.parse::<i32>().unwrap();
+    let ba_i32 = ba_string.parse::<i32>().unwrap();
 
-    for i in 0..k {
-        result.push_str(my_string);
+    if ab_i32 > ba_i32 {
+        ab_string
+    } else {
+        ba_string
     }
-    result
 }
+
 
 
 
