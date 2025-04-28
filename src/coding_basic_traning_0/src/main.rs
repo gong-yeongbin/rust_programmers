@@ -44,6 +44,36 @@ fn is_validation_s(n1: usize, n2: usize) -> Result<(), String> {
     } else if n1 > n2 { return Err(format!("최대 {} 이하여야 합니다. 현재: {}", n2, n1)); } else { Ok(()) }
 }
 
+fn print_mix_str(str1: &str, str2: &str) {
+    if str1.len() != str2.len() { panic!("The two characters are not the same length.") }
+
+    let chars1: Vec<char> = str1.chars().collect();
+    let chars2: Vec<char> = str2.chars().collect();
+
+    for i in 0..chars1.len() {
+        print!("{}{}", chars1[i], chars2[i]);
+    }
+}
+
+fn is_mix_str_verification(str: &str) -> Result<(), String> {
+    for s in str.chars() {
+        if !s.is_lowercase() {
+            return Err(format!("Is not lowercase"));
+        }
+        if !s.is_alphabetic() {
+            return Err(format!("Is not alphabet"));
+        }
+    }
+
+    if str.len() <= 0 {
+        return Err(format!("Minimum length must be 1."));
+    }
+    if str.len() > 10 {
+        return Err(format!("Maximum length must be 10."));
+    }
+
+    Ok(())
+}
 
 fn main() {
     /*
@@ -397,57 +427,57 @@ fn main() {
         str1	str2	result
         "aaaaa"	"bbbbb"	"ababababab"
     */
-    println!("##### 문자열 섞기 #####");
-    let mut buffer = String::new();
+    // println!("##### 문자열 섞기 #####");
+    // let mut buffer = String::new();
+    //
+    // println!("입력 #");
+    // io::stdin().read_line(&mut buffer).unwrap();
+    //
+    // let input: Vec<&str> = buffer.split_whitespace().collect();
+    // let str1 = match is_mix_str_verification(input[0]) {
+    //     Ok(()) => input[0],
+    //     Err(err) => panic!("{}", err)
+    // };
+    // let str2 = match is_mix_str_verification(input[1]) {
+    //     Ok(()) => input[1],
+    //     Err(err) => panic!("{}", err)
+    // };
+    //
+    // println!("출력 #");
+    // print_mix_str(str1, str2);
+
+    /*
+    문자 리스트를 문자열로 변환하기
+    문제 설명
+        문자들이 담겨있는 배열 arr가 주어집니다. arr의 원소들을 순서대로 이어 붙인 문자열을 return 하는 solution함수를 작성해 주세요.
+    제한사항
+        - 1 ≤ arr의 길이 ≤ 200
+        - arr의 원소는 전부 알파벳 소문자로 이루어진 길이가 1인 문자열입니다.
+    입출력 예
+        arr             result
+        ["a","b","c"]	"abc"
+    */
+    println!("##### 문자 리스트를 문자열로 변환하기 #####");
 
     println!("입력 #");
+    let mut buffer = String::new();
     io::stdin().read_line(&mut buffer).unwrap();
 
     let input: Vec<&str> = buffer.split_whitespace().collect();
-    let str1 = match is_mix_str_verification(input[0]) {
-        Ok(()) => input[0],
-        Err(err) => panic!("{}", err)
-    };
-    let str2 = match is_mix_str_verification(input[1]) {
-        Ok(()) => input[1],
-        Err(err) => panic!("{}", err)
-    };
-
+    let result = solution(input);
     println!("출력 #");
-    print_mix_str(str1, str2);
+    println!("{}", result);
 }
 
-fn print_mix_str(str1: &str, str2: &str) {
-    if str1.len() != str2.len() { panic!("The two characters are not the same length.") }
+fn solution(str: Vec<&str>) -> String {
+    let mut result = String::new();
 
-    let chars1: Vec<char> = str1.chars().collect();
-    let chars2: Vec<char> = str2.chars().collect();
-
-    for i in 0..chars1.len() {
-        print!("{}{}", chars1[i], chars2[i]);
+    for s in str {
+        result.push_str(s)
     }
+
+    result
 }
-
-fn is_mix_str_verification(str: &str) -> Result<(), String> {
-    for s in str.chars() {
-        if !s.is_lowercase() {
-            return Err(format!("Is not lowercase"));
-        }
-        if !s.is_alphabetic() {
-            return Err(format!("Is not alphabet"));
-        }
-    }
-
-    if str.len() <= 0 {
-        return Err(format!("Minimum length must be 1."));
-    }
-    if str.len() > 10 {
-        return Err(format!("Maximum length must be 10."));
-    }
-
-    Ok(())
-}
-
 
 
 
