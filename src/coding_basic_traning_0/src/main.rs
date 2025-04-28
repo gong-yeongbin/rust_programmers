@@ -107,6 +107,16 @@ fn is_mix_str_verification(str: &str) -> Result<(), String> {
 //         ba_string
 //     }
 // }
+// fn solution(a: &i32, b: &i32) -> i32 {
+//     let concat_ab = format!("{a}{b}").parse::<i32>().unwrap();
+//     let calculate_ab = 2 * a * b;
+//
+//     if concat_ab > calculate_ab {
+//         concat_ab
+//     } else {
+//         calculate_ab
+//     }
+// }
 
 fn main() {
     /*
@@ -583,28 +593,57 @@ fn main() {
     입출력 예 #2
         a ⊕ b = 912 이고, 2 * a * b = 364 입니다. 둘 중 더 큰 값은 912 이므로 912를 return 합니다.
     */
-    println!("##### 두 수의 연산값 비교하기 #####");
+    // println!("##### 두 수의 연산값 비교하기 #####");
+    // let mut buffer = String::new();
+    //
+    // println!("입력 #");
+    // io::stdin().read_line(&mut buffer).unwrap();
+    // let input: Vec<&str> = buffer.split_whitespace().collect();
+    // let a = input[0].parse::<i32>().unwrap();
+    // let b = input[1].parse::<i32>().unwrap();
+    //
+    // let result = solution(&a, &b);
+    // println!("결과 #");
+    // println!("{result}");
+
+    /*
+    n의 배수
+    문제 설명
+        정수 num과 n이 매개 변수로 주어질 때, num이 n의 배수이면 1을 return n의 배수가 아니라면 0을 return하도록 solution 함수를 완성해주세요.
+    제한사항
+        2 ≤ num ≤ 100
+        2 ≤ n ≤ 9
+    입출력 예
+        num	n	result
+        98	2	1
+        34	3	0
+    입출력 예 설명
+    입출력 예 #1
+        98은 2의 배수이므로 1을 return합니다.
+    입출력 예 #2
+        32는 3의 배수가 아니므로 0을 return합니다.
+    */
+    println!("##### n의 배수 #####");
     let mut buffer = String::new();
 
     println!("입력 #");
     io::stdin().read_line(&mut buffer).unwrap();
     let input: Vec<&str> = buffer.split_whitespace().collect();
-    let a = input[0].parse::<i32>().unwrap();
-    let b = input[1].parse::<i32>().unwrap();
+    let num = input[0].parse::<i32>().unwrap();
+    let n = input[1].parse::<i32>().unwrap();
 
-    let result = solution(&a, &b);
-    println!("결과 #");
+    let result = solution(&num, &n);
+    println!("출력 #");
     println!("{result}");
 }
 
-fn solution(a: &i32, b: &i32) -> i32 {
-    let concat_ab = format!("{a}{b}").parse::<i32>().unwrap();
-    let calculate_ab = 2 * a * b;
+fn solution(num: &i32, n: &i32) -> i32 {
+    let result = num % n;
 
-    if concat_ab > calculate_ab {
-        concat_ab
+    if result == 0 {
+        1
     } else {
-        calculate_ab
+        0
     }
 }
 
