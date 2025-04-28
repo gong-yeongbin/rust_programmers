@@ -497,6 +497,7 @@ fn main() {
         예제 2번의 my_string은 "love"이고 이를 10번 반복한 문자열은 "lovelovelovelovelovelovelovelovelovelove"이므로 이를 return 합니다.
     */
     println!("##### 문자열 곱하기 #####");
+    println!("입력 #");
     let mut buffer = String::new();
     io::stdin().read_line(&mut buffer).unwrap();
 
