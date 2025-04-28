@@ -1,5 +1,7 @@
 use std::io::{self, BufRead};
 use std::process::exit;
+use std::slice::SliceIndex;
+use std::str::SplitWhitespace;
 
 fn is_alphabetic(str: &str) -> bool {
     let text = str.clone().trim().replace(" ", "");
@@ -16,6 +18,7 @@ fn is_alphanumeric(str: &str) -> bool {
     }
     true
 }
+
 
 fn main() {
     /*
@@ -290,36 +293,97 @@ fn main() {
     출력 #2
         1 is odd
     */
-    println!("##### 홀짝 구분하기 #####");
+    // println!("##### 홀짝 구분하기 #####");
+    // let mut args = String::new();
+    //
+    // println!("입력 #");
+    // io::stdin().read_line(&mut args).unwrap();
+    //
+    // let n = match args.trim().parse::<i32>() {
+    //     Ok(n) => n,
+    //     Err(_) => {
+    //         println!("숫자가 아닙니다.");
+    //         exit(0)
+    //     }
+    // };
+    //
+    // println!("출력 #");
+    // if n % 2 == 0 {
+    //     println!("{} is even", n);
+    // } else {
+    //     println!("{} is odd", n);
+    // }
+
+    /*
+    문자열 겹쳐쓰기
+    문제 설명
+        문자열 my_string, overwrite_string과 정수 s가 주어집니다. 문자열 my_string의 인덱스 s부터 overwrite_string의 길이만큼을 문자열 overwrite_string으로 바꾼 문자열을 return 하는 solution 함수를 작성해 주세요.
+    제한사항
+        - my_string와 overwrite_string은 숫자와 알파벳으로 이루어져 있습니다.
+        - 1 ≤ overwrite_string의 길이 ≤ my_string의 길이 ≤ 1,000
+        - 0 ≤ s ≤ my_string의 길이 - overwrite_string의 길이
+    입출력 예
+        my_string           overwrite_string    s	result
+        "He11oWor1d"	    "lloWorl"	        2	"HelloWorld"
+        "Program29b8UYP"	"merS123"	        7	"ProgrammerS123"
+    입출력 예 설명
+    입출력 예 #1
+        예제 1번의 my_string에서 인덱스 2부터 overwrite_string의 길이만큼에 해당하는 부분은 "11oWor1"이고 이를 "lloWorl"로 바꾼 "HelloWorld"를 return 합니다.
+    입출력 예 #2
+        예제 2번의 my_string에서 인덱스 7부터 overwrite_string의 길이만큼에 해당하는 부분은 "29b8UYP"이고 이를 "merS123"로 바꾼 "ProgrammerS123"를 return 합니다.
+    */
+    println!("##### 문자열 겹쳐쓰기 #####");
     let mut args = String::new();
 
     println!("입력 #");
     io::stdin().read_line(&mut args).unwrap();
 
-    // let n = args.trim().parse::<i32>().unwrap_or(0);
-    let n = match args.trim().parse::<i32>() {
-        Ok(n) => n,
-        Err(_) => {
-            println!("숫자가 아닙니다.");
-            exit(0)
-        }
+    let buffer: Vec<&str> = args.split_whitespace().collect();
+    let arg1 = buffer[0];
+    let arg2 = buffer[1];
+    let arg3 = buffer[2].parse::<usize>().unwrap();
+
+    let mut my_string = match is_validation_mystring(arg1) {
+        Ok(()) => arg1.to_string(),
+        Err(err) => exit(0)
+    };
+    let overwrite_string = match is_validation_overwrite_string(arg1, arg2) {
+        Ok(()) => arg2,
+        Err(err) => exit(0)
+    };
+    let s = match is_validation_s(buffer[2].parse::<usize>().unwrap(), arg1.len() - arg2.len()) {
+        Ok(()) => arg3,
+        Err(err) => exit(0)
     };
 
+    my_string.replace_range(s..s + overwrite_string.len(), overwrite_string);
     println!("출력 #");
-    if n % 2 == 0 {
-        println!("{} is even", n);
-    } else {
-        println!("{} is odd", n);
-    }
+    println!("{}", my_string)
 }
 
 
+fn is_validation_mystring(str: &str) -> Result<(), String> {
+    let len = str.len();
+    if len < 1 {
+        return Err(format!("최소 {}자 이상 입력해야 합니다. 현재: {}", 1, len));
+    } else if len > 1000 { return Err(format!("최대 {}자 이하여야 합니다. 현재: {}", 1000, len)); } else { Ok(()) }
+}
 
+fn is_validation_overwrite_string(str1: &str, str2: &str) -> Result<(), String> {
+    let str1_len = str1.len();
+    let str2_len = str2.len();
+    if str2_len < 1 {
+        return Err(format!("최소 {}자 이상 입력해야 합니다. 현재: {}", 1, str1_len));
+    } else if str1_len < str2_len {
+        return Err(format!("최대 {}자 이하여야 합니다. 현재: {}", 1000, str1_len));
+    } else { Ok(()) }
+}
 
-
-
-
-
+fn is_validation_s(n1: usize, n2: usize) -> Result<(), String> {
+    if n1 < 0 {
+        return Err(format!("최소 {}이상 입력해야 합니다. 현재: {}", 0, n1));
+    } else if n1 > n2 { return Err(format!("최대 {} 이하여야 합니다. 현재: {}", n2, n1)); } else { Ok(()) }
+}
 
 
 
