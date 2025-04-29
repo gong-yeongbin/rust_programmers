@@ -133,6 +133,25 @@ fn is_mix_str_verification(str: &str) -> Result<(), String> {
 //         0
 //     }
 // }
+// fn solution(n: &i32) -> i32 {
+//     let mut num = n.clone();
+//     let mut result: Vec<i32> = Vec::new();
+//     let last_num = if num % 2 > 0 { 1 } else { 2 };
+//
+//     loop {
+//         if last_num == 1 {
+//             result.push(num);
+//         } else {
+//             result.push(num.pow(2));
+//         }
+//
+//         num -= 2;
+//
+//         if num < last_num { break; }
+//     }
+//
+//     result.iter().sum()
+// }
 fn main() {
     /*
     문자열 출력하기
@@ -699,39 +718,76 @@ fn main() {
     입출력 예 #2
         예제 2번의 n은 10으로 짝수입니다. 10 이하의 모든 양의 짝수는 2, 4, 6, 8, 10이고 이들의 제곱의 합인 22 + 42 + 62 + 82 + 102 = 4 + 16 + 36 + 64 + 100 = 220을 return 합니다.
     */
-    println!("##### 홀짝에 따라 다른 값 반환하기 #####");
+    // println!("##### 홀짝에 따라 다른 값 반환하기 #####");
+    // let mut buffer = String::new();
+    //
+    // println!("입력 #");
+    // io::stdin().read_line(&mut buffer).unwrap();
+    //
+    // let input: Vec<&str> = buffer.split_whitespace().collect();
+    // let n = input[0].parse::<i32>().unwrap();
+    //
+    // let result = solution(&n);
+    // println!("출력 #");
+    // println!("{result}");
+
+    /*
+    조건 문자열
+    문제 설명
+        문자열에 따라 다음과 같이 두 수의 크기를 비교하려고 합니다.
+            두 수가 n과 m이라면
+            ">", "=" : n >= m
+            "<", "=" : n <= m
+            ">", "!" : n > m
+            "<", "!" : n < m
+        두 문자열 ineq와 eq가 주어집니다. ineq는 "<"와 ">"중 하나고, eq는 "="와 "!"중 하나입니다. 그리고 두 정수 n과 m이 주어질 때, n과 m이 ineq와 eq의 조건에 맞으면 1을 아니면 0을 return하도록 solution 함수를 완성해주세요.
+    제한 사항
+        1 ≤ n, m ≤ 100
+    입출력 예
+        ineq    eq  n	m	result
+        "<"	    "="	20	50	1
+        ">"	    "!"	41	78	0
+    입출력 예 설명
+    입출력 예 #1
+        20 <= 50은 참이기 때문에 1을 return합니다.
+    입출력 예 #2
+        41 > 78은 거짓이기 때문에 0을 return합니다.
+    */
+    println!("##### 조건 문자열 #####");
     let mut buffer = String::new();
 
     println!("입력 #");
     io::stdin().read_line(&mut buffer).unwrap();
 
     let input: Vec<&str> = buffer.split_whitespace().collect();
-    let n = input[0].parse::<i32>().unwrap();
+    let ineq = input[0];
+    let eq = input[1];
+    let n = input[2].parse::<i32>().unwrap();
+    let m = input[3].parse::<i32>().unwrap();
 
-    let result = solution(&n);
+    let result = solution(ineq, eq, n, m);
     println!("출력 #");
     println!("{result}");
 }
 
-fn solution(n: &i32) -> i32 {
-    let mut num = n.clone();
-    let mut result: Vec<i32> = Vec::new();
-    let last_num = if num % 2 > 0 { 1 } else { 2 };
+fn solution(ineq: &str, eq: &str, n: i32, m: i32) -> i32 {
+    let ineq_eq = format!("{ineq}{eq}");
 
-    loop {
-        if last_num == 1 {
-            result.push(num);
-        } else {
-            result.push(num.pow(2));
-        }
+    let answer = match ineq_eq.as_str() {
+        ">=" => n >= m,
+        "<=" => n <= m,
+        ">!" => !n > m,
+        "<!" => !n < m,
+        _ => false
+    };
 
-        num -= 2;
-
-        if num < last_num { break; }
+    if answer == true {
+        1
+    } else {
+        0
     }
-
-    result.iter().sum()
 }
+
 
 
 
