@@ -117,7 +117,15 @@ fn is_mix_str_verification(str: &str) -> Result<(), String> {
 //         calculate_ab
 //     }
 // }
-
+// fn solution(num: &i32, n: &i32) -> i32 {
+//     let result = num % n;
+//
+//     if result == 0 {
+//         1
+//     } else {
+//         0
+//     }
+// }
 fn main() {
     /*
     문자열 출력하기
@@ -623,29 +631,61 @@ fn main() {
     입출력 예 #2
         32는 3의 배수가 아니므로 0을 return합니다.
     */
-    println!("##### n의 배수 #####");
+    // println!("##### n의 배수 #####");
+    // let mut buffer = String::new();
+    //
+    // println!("입력 #");
+    // io::stdin().read_line(&mut buffer).unwrap();
+    // let input: Vec<&str> = buffer.split_whitespace().collect();
+    // let num = input[0].parse::<i32>().unwrap();
+    // let n = input[1].parse::<i32>().unwrap();
+    //
+    // let result = solution(&num, &n);
+    // println!("출력 #");
+    // println!("{result}");
+
+    /*
+    공배수
+    문제 설명
+        정수 number와 n, m이 주어집니다. number가 n의 배수이면서 m의 배수이면 1을 아니라면 0을 return하도록 solution 함수를 완성해주세요.
+    제한사항
+        10 ≤ number ≤ 100
+        2 ≤ n, m < 10
+    입출력 예
+        number	n	m	result
+            60	2	3	    1
+            55	10	5	    0
+    입출력 예 설명
+    입출력 예 #1
+        60은 2의 배수이면서 3의 배수이기 때문에 1을 return합니다.
+    입출력 예 #2
+        55는 5의 배수이지만 10의 배수가 아니기 때문에 0을 return합니다.
+    */
+    println!("##### 공배수 #####");
     let mut buffer = String::new();
 
     println!("입력 #");
     io::stdin().read_line(&mut buffer).unwrap();
     let input: Vec<&str> = buffer.split_whitespace().collect();
-    let num = input[0].parse::<i32>().unwrap();
-    let n = input[1].parse::<i32>().unwrap();
 
-    let result = solution(&num, &n);
+    let number: i32 = input[0].parse::<i32>().unwrap();
+    let n: i32 = input[0].parse::<i32>().unwrap();
+    let m: i32 = input[0].parse::<i32>().unwrap();
+
+    let result = solution(&number, &n, &m);
     println!("출력 #");
     println!("{result}");
 }
 
-fn solution(num: &i32, n: &i32) -> i32 {
-    let result = num % n;
-
-    if result == 0 {
+fn solution(number: &i32, n: &i32, m: &i32) -> i32 {
+    if number % n == 0 && number % m == 0 {
         1
     } else {
         0
     }
 }
+
+
 
 
 
