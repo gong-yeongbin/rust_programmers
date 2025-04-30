@@ -152,6 +152,23 @@ fn is_mix_str_verification(str: &str) -> Result<(), String> {
 //
 //     result.iter().sum()
 // }
+// fn solution(ineq: &str, eq: &str, n: i32, m: i32) -> i32 {
+//     let ineq_eq = format!("{ineq}{eq}");
+//
+//     let answer = match ineq_eq.as_str() {
+//         ">=" => n >= m,
+//         "<=" => n <= m,
+//         ">!" => !n > m,
+//         "<!" => !n < m,
+//         _ => false
+//     };
+//
+//     if answer == true {
+//         1
+//     } else {
+//         0
+//     }
+// }
 fn main() {
     /*
     문자열 출력하기
@@ -753,40 +770,63 @@ fn main() {
     입출력 예 #2
         41 > 78은 거짓이기 때문에 0을 return합니다.
     */
-    println!("##### 조건 문자열 #####");
+    // println!("##### 조건 문자열 #####");
+    // let mut buffer = String::new();
+    //
+    // println!("입력 #");
+    // io::stdin().read_line(&mut buffer).unwrap();
+    //
+    // let input: Vec<&str> = buffer.split_whitespace().collect();
+    // let ineq = input[0];
+    // let eq = input[1];
+    // let n = input[2].parse::<i32>().unwrap();
+    // let m = input[3].parse::<i32>().unwrap();
+    //
+    // let result = solution(ineq, eq, n, m);
+    // println!("출력 #");
+    // println!("{result}");
+
+    /*
+    flag에 따라 다른 값 반환하기
+    문제 설명
+        두 정수 a, b와 boolean 변수 flag가 매개변수로 주어질 때, flag가 true면 a + b를 false면 a - b를 return 하는 solution 함수를 작성해 주세요.
+    제한사항
+       -1,000 ≤ a, b ≤ 1,000
+    입출력 예
+        a	b	flag	result
+        -4	7	true	3
+        -4	7	false	-11
+    입출력 예
+    입출력 예 #1
+        예제 1번에서 flag가 true이므로 a + b = (-4) + 7 = 3을 return 합니다.
+    입출력 예 #2
+        예제 2번에서 flag가 false이므로 a - b = (-4) - 7 = -11을 return 합니다.
+    */
+    println!("##### flag에 따라 다른 값 반환하기 #####");
     let mut buffer = String::new();
 
     println!("입력 #");
     io::stdin().read_line(&mut buffer).unwrap();
-
     let input: Vec<&str> = buffer.split_whitespace().collect();
-    let ineq = input[0];
-    let eq = input[1];
-    let n = input[2].parse::<i32>().unwrap();
-    let m = input[3].parse::<i32>().unwrap();
+    let a = input[0].parse::<i32>().unwrap();
+    let b = input[1].parse::<i32>().unwrap();
+    let flag = input[2].parse::<bool>().unwrap();
 
-    let result = solution(ineq, eq, n, m);
+    let result = solution(a, b, flag);
     println!("출력 #");
     println!("{result}");
 }
 
-fn solution(ineq: &str, eq: &str, n: i32, m: i32) -> i32 {
-    let ineq_eq = format!("{ineq}{eq}");
-
-    let answer = match ineq_eq.as_str() {
-        ">=" => n >= m,
-        "<=" => n <= m,
-        ">!" => !n > m,
-        "<!" => !n < m,
-        _ => false
-    };
-
-    if answer == true {
-        1
+fn solution(a: i32, b: i32, flag: bool) -> i32 {
+    if flag {
+        a + b
     } else {
-        0
+        a - b
     }
 }
+
+
+
 
 
 
